@@ -1,0 +1,84 @@
+#include"Stack.h"
+Status IniStack(stack &s)
+{
+	s.base = new Elemtype[MAXSIZE];
+	if (!s.base)exit(0);
+	s.top = s.base;
+	s.stacksize = MAXSIZE;
+	return ok;
+}
+Status Push(stack& s, Elemtype e)
+{
+	if (s.top - s.base >= MAXSIZE)return error;
+	cout << "插入：" << e << endl;
+	*s.top++ = e;
+	return ok;
+}
+Status Pop(stack& s, Elemtype e)
+{
+	if (s.base == s.top)return error;
+	e = *--s.top;
+	cout << "被删除的元素为："<<e << endl;
+	return ok;
+}
+Status GetTop(stack s, Elemtype& e)
+{
+	if (s.base == s.top)return error;
+	e = *(s.top - 1);
+	cout << "Top is " << e << endl;
+	return ok;
+}
+Status TopTraverse(stack s)
+{
+	cout << "倒序遍历：";
+	Elemtype* p = s.top - 1;
+	while (p >= s.base)
+	{
+		cout<<*p<<" ";
+		p--;
+	}
+	cout << endl;
+	return ok;
+}
+Status BaseTraverse(stack s)
+{
+	cout << "正序遍历：";
+	Elemtype* p = s.base;
+	while (p < s.top)
+	{
+		cout << *p << " ";
+		p++;
+	}
+	cout << endl;
+	return ok;
+}
+Status ClearStack(stack& s)
+{
+	if(s.base)s.top = s.base;
+	cout << "成功clear" << endl;
+	return ok;
+}
+Status DestroyStack(stack& s)
+{
+	if (s.base)
+	{
+		delete[]s.base;
+		s.stacksize = 0;
+		s.base = NULL;
+		s.top = NULL;
+	}
+	cout << "成功Destroy" << endl;
+	return ok;
+}
+bool StackEmpty(stack s)
+{
+	return s.base == NULL;
+}
+Status StackFull(stack s)
+{
+	if (s.top - s.base >= s.stacksize)
+		cout << "栈已满" << endl;
+	else
+		cout << "栈未满" << endl;
+	return ok;
+}
